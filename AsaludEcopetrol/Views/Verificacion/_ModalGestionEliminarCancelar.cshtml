@@ -1,0 +1,92 @@
+﻿@using Kendo.Mvc.UI;
+@{
+    ViewBag.Title = "_ModalGestion";
+}
+
+<form id="formNovedad">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <p class="text-primary_asalud">Gestión</p>
+        </div>
+        <div class="panel-body">
+            <div id="formulario" class="col-md-12">
+
+                <!-- Fila para Motivo -->
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <input type="hidden" name="idVeri" id="idVeri" value="@ViewBag.idVerificacion" />
+
+                        <label class="text-secondary_asalud">Motivo:</label>
+                        <select class="form-control" id="motivoNovedad" name="motivoNovedad" required>
+                            <option value=""></option>
+                            @foreach (ECOPETROL_COMMON.ENTIDADES.ref_puntoDispensacion_tiposNovedad item in ViewBag.tipos)
+                            {
+                                <option value="@item.id_ref">@item.descripcion</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Fila para Observaciones -->
+                <div id="DivObserva" class="row">
+                    <div class="col-sm-12 form-group">
+                        <label class="text-secondary_asalud">Observación:</label>
+                        <textarea class="form-control" id="obsNovedad" name="obsNovedad" rows="5" maxlength="4999" required></textarea>
+                    </div>
+                </div>
+
+                <!-- Botón de Guardar -->
+                <div class="row">
+                    <div class="col-sm-12 text-right">
+                        <button type="button" id="btnGuardar" onclick="ValidarFormularioNovedad()" class="button_Asalud_Guardar">Guardar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+
+<script src="~/Scripts/validate.js"></script>
+
+<script>
+    $(".datepickerr2").kendoDatePicker({
+        format: "MM/dd/yyyy",
+    });
+
+    function ValidarFormularioNovedad() {
+
+        var validator = $("#formNovedad").validate();
+        if (validator.form()) {
+            GuardarNovedad();
+        }
+    }
+
+    function GuardarNovedad() {
+
+        var formData = new FormData($("form")[0]);
+
+        formData.append("idVerificacion", $("#idVeri").val());
+        formData.append("motivo", $("#motivoNovedad").val());
+        formData.append("observacion", $("#obsNovedad").val());
+
+        LoadingShow();
+        
+        $.ajax({
+            url: "@Url.Action("EliminarCancelarVisitaDis", "Verificacion")",
+            type: "post",
+            data: formData,
+            method: 'POST',
+            contentType: false,
+            processData: false,
+
+            success: function (data) {
+                alert(data.message);
+                LoadingHide();
+
+                location.href = "@Url.Action("TableroPuntoDispensacion", "Verificacion")";
+            }
+        })
+    }
+</script>
+

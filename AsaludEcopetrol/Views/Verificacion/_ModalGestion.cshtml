@@ -1,0 +1,146 @@
+﻿@using Kendo.Mvc.UI;
+@{
+    ViewBag.Title = "_ModalGestion";
+}
+
+<form id="formGestion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <p class="text-primary_asalud">Gestión</p>
+        </div>
+        <div class="panel-body">
+            <div>
+                <div id="divotrosi">
+                    <div id="formulario" class="col-md-12  ">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input type="hidden" name="txtidverificacion" id="txtidverificacion" value="@ViewBag.idVerificacion" style="width: 100%; max-width:100%; max-height:60%;" required />
+                                <label class="text-secondary_asalud">Motivo:</label><span style="color:red"></span>
+                                <select class="form-control" id="txtmotivo" onchange="seleccion(this.value);" required>
+                                    <option value=""></option>
+                                    @foreach (ECOPETROL_COMMON.ENTIDADES.ref_puntoDispensacion_tiposActualizacion item in ViewBag.tipos)
+                                    {
+                                        <option value="@item.id_ref">@item.descripcion</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <br />
+
+                        <div id="divCambioFecha" style="display:none;">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label class="text-secondary_asalud">Fecha estimada de visita:</label><span style="color:red"></span>
+                                    <input class="datepickerr2" onkeydown="javascript:return false;" style="width:100%" id="txtfecha" name="txtfecha" autocomplete="off" required />
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div id="divCambioAuditor" style="display:none;">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label class="text-secondary_asalud">Auditor responsable:</label><span style="color:red"></span>
+                                    <input name="txtauditor" id="txtauditor" class="form-control" required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div id="DivObserva" style="display:none;">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label class="text-secondary_asalud">Motivo del cambio:</label><span style="color:red"></span>
+                                    <textarea class="form-control" requerid id="txtobservacion" name="txtobservacion" rows="5" cols="10" maxlength="4999" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+
+                        <div class="row">
+                            <div class="col-sm-12 form-group text-right">
+                                <button type="button" id="btnGuardar" onclick="ValidarFormulario()" class="button_Asalud_Guardar">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script src="~/Scripts/validate.js"></script>
+
+<script>
+    $(".datepickerr2").kendoDatePicker({
+        format: "MM/dd/yyyy",
+    });
+
+    function seleccion(select) {
+
+        $("#txtobservacion").val("");
+        $("#txtobservacion").text("");
+        document.getElementById("DivObserva").style.display = "block";
+
+        if (select == 1) {
+            document.getElementById("divCambioFecha").style.display = "block";
+            document.getElementById("divCambioAuditor").style.display = "none";
+
+            $("#txtfecha").val(null);
+            $("#txtauditor").val("");
+            $("#txtauditor").val("");
+        }
+        else if (select == 2) {
+            document.getElementById("divCambioFecha").style.display = "none";
+            document.getElementById("divCambioAuditor").style.display = "block";
+            $("#txtfecha").val(null);
+            $("#txtauditor").val("");
+            $("#txtauditor").val("");
+        }
+        else {
+            document.getElementById("divCambioFecha").style.display = "none";
+            document.getElementById("divCambioAuditor").style.display = "none";
+
+            $("#txtfecha").val(null);
+            $("#txtauditor").val("");
+            $("#txtauditor").val("");
+        }
+    }
+
+    function ValidarFormulario() {
+
+        var validator = $("#formGestion").validate();
+        if (validator.form()) {
+            GuardarNuevaVisita();
+        }
+    }
+
+    function GuardarNuevaVisita() {
+
+        var formData = new FormData($("form")[0]);
+
+        formData.append("idVerificacion", $("#txtidverificacion").val());
+        formData.append("motivo", $("#txtmotivo").val());
+        formData.append("fecha", $("#txtfecha").val());
+        formData.append("auditor", $("#txtauditor").val());
+        formData.append("observacion", $("#txtobservacion").val());
+
+        LoadingShow();
+
+        $.ajax({
+            url: "@Url.Action("ActualizarVisitaDis", "Verificacion")",
+            type: "post",
+            data: formData,
+            method: 'POST',
+            contentType: false,
+            processData: false,
+
+            success: function (data) {
+                alert(data.message);
+                LoadingHide();
+                location.href = "@Url.Action("TableroPuntoDispensacion", "Verificacion")";
+            }
+        })
+    }
+</script>
