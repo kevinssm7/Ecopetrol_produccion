@@ -484,6 +484,7 @@ namespace AsaludEcopetrol.Controllers.VerificacionEstablecimiento
             return RedirectToAction("CriteriosVerificacion", "Verificacion", new { idTipoVer = idTipoVer });
         }
 
+
         public ActionResult CargueVerificacionPuntoDispensacion()
         {
             ViewData["rta"] = 0;
