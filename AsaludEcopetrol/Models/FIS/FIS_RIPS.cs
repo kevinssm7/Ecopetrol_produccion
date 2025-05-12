@@ -925,8 +925,9 @@ namespace AsaludEcopetrol.Models.FIS
                                     }
                                     else
                                     {
-                                        textError = columna + ", no pueden venir valores en 0 o vacíos.";
-                                        throw new Exception(textError);
+                                        //textError = columna + ", no pueden venir valores en 0 o vacíos.";
+                                        //throw new Exception(textError);
+                                        dato.vrServicio = 0;
                                     }
                                 }
                                 else
@@ -1747,8 +1748,10 @@ namespace AsaludEcopetrol.Models.FIS
                                     }
                                     else
                                     {
-                                        textError = columna + ", no pueden venir valores en 0 o vacíos.";
-                                        throw new Exception(textError);
+                                        //textError = columna + ", no pueden venir valores en 0 o vacíos.";
+                                        //throw new Exception(textError);
+
+                                        dato.vrServicio = 0;
                                     }
                                 }
                                 else
@@ -2114,10 +2117,11 @@ namespace AsaludEcopetrol.Models.FIS
                                     }
                                     else
                                     {
-                                        textError = columna + ", no pueden venir valores en 0 o vacíos.";
-                                        throw new Exception(textError);
-                                    }
+                                        //textError = columna + ", no pueden venir valores en 0 o vacíos.";
+                                        //throw new Exception(textError);
 
+                                        dato.vrServicio = 0;
+                                    }
                                 }
                                 else
                                 {
@@ -2579,8 +2583,9 @@ namespace AsaludEcopetrol.Models.FIS
                                     }
                                     else
                                     {
-                                        textError = columna + ", no pueden venir valores en 0 o vacíos.";
-                                        throw new Exception(textError);
+                                        //textError = columna + ", no pueden venir valores en 0 o vacíos.";
+                                        //throw new Exception(textError);
+                                        dato.vrServicio = 0;
                                     }
                                 }
                                 else
@@ -4470,8 +4475,9 @@ namespace AsaludEcopetrol.Models.FIS
                         }
                         else
                         {
-                            textError = columna + ", no pueden venir valores en 0 o vacíos.";
-                            throw new Exception(textError);
+                            //textError = columna + ", no pueden venir valores en 0 o vacíos.";
+                            //throw new Exception(textError);
+                            dato.vrServicio = 0; 
                         }
                     }
                     else
@@ -5201,8 +5207,9 @@ namespace AsaludEcopetrol.Models.FIS
                     }
                     else
                     {
-                        textError = columna + ", no pueden venir valores en 0 o vacíos.";
-                        throw new Exception(textError);
+                        //textError = columna + ", no pueden venir valores en 0 o vacíos.";
+                        //throw new Exception(textError);
+                        dato.vrServicio = 0;
                     }
                 }
                 else
@@ -6074,6 +6081,7 @@ namespace AsaludEcopetrol.Models.FIS
                     {
                         textError = columna + ", no pueden venir valores en 0 o vacíos.";
                         throw new Exception(textError);
+
                     }
                 }
                 else
@@ -6151,8 +6159,10 @@ namespace AsaludEcopetrol.Models.FIS
                     }
                     else
                     {
-                        textError = columna + ", no pueden venir valores en 0 o vacíos.";
-                        throw new Exception(textError);
+                        dato.vrServicio = 0;
+
+                        //textError = columna + ", no pueden venir valores en 0 o vacíos.";
+                        //throw new Exception(textError);
                     }
 
                 }
@@ -6513,8 +6523,10 @@ namespace AsaludEcopetrol.Models.FIS
                     }
                     else
                     {
-                        textError = columna + ", no pueden venir valores en 0 o vacíos.";
-                        throw new Exception(textError);
+                        dato.vrServicio = 0;
+
+                        //textError = columna + ", no pueden venir valores en 0 o vacíos.";
+                        //throw new Exception(textError);
                     }
 
                 }

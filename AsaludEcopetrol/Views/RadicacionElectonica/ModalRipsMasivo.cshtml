@@ -136,51 +136,6 @@
         }
     }
 
-    @*function GuardarDatosRips() {
-
-        var formData = new FormData($("#formularioIngresoRips")[0]);
-        formData.append("codigo_cuv", $("#codigo_cuv").val());
-        formData.append("idDetalle", $("#idDetalle").val());
-        formData.append("idCargue", $("#idCargue").val());
-        formData.append("listadoId", $("#listadoId").val());
-        formData.append("listadoCuv", $("#listadoCuv").val());
-        formData.append("tipo", $("#tipo"));
-        formData.append("existeCuv", $("#existeCuv"));
-        formData.append("codPrestador", $("#codPrestador"));
-        formData.append("listadoCodPrestador", $("#listadoCodPrestador"));
-
-        var tipoIngreso = $("#tipo").val();
-
-        var archivos = $("#files")[0].files;
-
-        for (var i = 0; i < archivos.length; i++) {
-            formData.append("archivo", archivos[i]);
-        }
-
-        LoadingShow();
-        $.ajax({
-            url: '@Url.Action("GuardarConsultas", "FIS_RIPS")',
-
-            data: formData,
-            method: "POST",
-            processData: false,
-            contentType: false,
-
-            success: function (response) {
-
-                alert(response.mensaje);
-                LoadingHide();
-
-                if (response.rta == 1) {
-                    location.reload();
-                }
-            },
-            error: function (xhr, status, error) {
-                LoadingHide();
-            }
-        });
-    }*@
-
     function GuardarDatosPruebas() {
 
         var formData = new FormData($("#formularioIngresoRips")[0]);

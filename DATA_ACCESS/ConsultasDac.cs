@@ -11797,6 +11797,7 @@ namespace DATA_ACCESS
             ECOPETROL_DataContexDataContext db = new ECOPETROL_DataContexDataContext();
 
             List<managment_prestadores_facturasResult> result = new List<managment_prestadores_facturasResult>();
+            db.CommandTimeout = 3600;
             result = db.managment_prestadores_facturas(idrecepcion).Where(l => l.id_cargue_dtll == iddetalle).ToList();
             return result;
         }
@@ -12903,6 +12904,7 @@ namespace DATA_ACCESS
             {
                 using (ECOPETROL_DataContexDataContext db = new ECOPETROL_DataContexDataContext())
                 {
+                    db.CommandTimeout = 3600;
                     result = db.managment_prestadores_list_rechazos(id_dtll).ToList();
                     MsgRes.ResponseType = BussinesEnums.EnumTipoRespuesta.Correcto;
                     return result;

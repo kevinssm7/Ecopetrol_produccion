@@ -5834,7 +5834,7 @@ namespace DATA_ACCESS
                     obj2.valor_cups = obj.valor_cups;
                     obj2.codigo_tiga = obj.codigo_tiga;
                     obj2.descripcion_tiga = obj.descripcion_tiga;
-                    //obj2.fecha_prestacion = obj.fecha_prestacion;
+                    obj2.fecha_prestacion = obj.fecha_prestacion;
                     db.SubmitChanges();
                     return 1;
                 }

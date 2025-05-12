@@ -8013,6 +8013,73 @@ namespace AsaludEcopetrol.Controllers.CuentasMedicas
         //    }
         //}
 
+        //public ActionResult versoporteclinico2(Int32 idsoporteclinico, Int32 idDtll)
+        //{
+        //    try
+        //    {
+        //        Models.CuentasMedicas.RadicacionElectronica Model = new Models.CuentasMedicas.RadicacionElectronica();
+        //        List<managment_prestadores_documentosResult> List = Model.GetSoportesList(idDtll);
+        //        List = List.Where(x => x.Id_gestion_documental == idsoporteclinico).ToList();
+        //        var obj = List.FirstOrDefault();
+
+        //        if (obj == null || string.IsNullOrEmpty(obj.ruta))
+        //        {
+        //            return RedirectToAction("ControlErrores", "Usuario", new { Mensaje = "No se encontró la ruta del archivo." });
+        //        }
+
+        //        string dirpath = Path.Combine(Request.PhysicalApplicationPath, obj.ruta);
+        //        if (System.IO.File.Exists(dirpath))
+        //        {
+        //            string extension = Path.GetExtension(dirpath).ToLower(); // Obtener extensión del archivo
+        //            string contentType;
+        //            bool isInline = false; // Para previsualizar en el navegador
+
+        //            switch (extension)
+        //            {
+        //                case ".pdf":
+        //                    contentType = "application/pdf";
+        //                    isInline = true; // Se previsualiza
+        //                    break;
+        //                case ".zip":
+        //                    contentType = "application/zip";
+        //                    break;
+        //                default:
+        //                    return RedirectToAction("ControlErrores", "Usuario", new { Mensaje = "Formato de archivo no soportado." });
+        //            }
+
+        //            byte[] bytes = System.IO.File.ReadAllBytes(dirpath);
+
+
+        //            Response.Clear();
+        //            Response.ContentType = contentType;
+        //            Response.AddHeader("Content-Length", bytes.Length.ToString());
+
+        //            if (isInline)
+        //            {
+        //                // Previsualización del PDF
+        //                Response.AddHeader("Content-Disposition", "inline; filename=" + Path.GetFileName(dirpath));
+        //            }
+        //            else
+        //            {
+        //                // Descarga del ZIP
+        //                Response.AddHeader("Content-Disposition", "attachment; filename=" + Path.GetFileName(dirpath));
+        //            }
+
+        //            Response.BinaryWrite(bytes);
+        //            Response.End();
+        //            return new EmptyResult();
+        //        }
+        //        else
+        //        {
+        //            return RedirectToAction("ControlErrores", "Usuario", new { Mensaje = "No se ha podido visualizar el archivo porque no existe la ruta de acceso." });
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return RedirectToAction("ControlErrores", "Usuario", new { Mensaje = "Ha ocurrido un error al mostrar el archivo: " + ex.Message });
+        //    }
+        //}
+
         public ActionResult versoporteclinico2(Int32 idsoporteclinico, Int32 idDtll)
         {
             try
@@ -8030,18 +8097,27 @@ namespace AsaludEcopetrol.Controllers.CuentasMedicas
                 string dirpath = Path.Combine(Request.PhysicalApplicationPath, obj.ruta);
                 if (System.IO.File.Exists(dirpath))
                 {
-                    string extension = Path.GetExtension(dirpath).ToLower(); // Obtener extensión del archivo
+                    string extension = Path.GetExtension(dirpath).ToLower();
                     string contentType;
-                    bool isInline = false; // Para previsualizar en el navegador
+                    bool isInline = false;
 
                     switch (extension)
                     {
                         case ".pdf":
                             contentType = "application/pdf";
-                            isInline = true; // Se previsualiza
+                            isInline = true;
                             break;
                         case ".zip":
                             contentType = "application/zip";
+                            break;
+                        case ".xml":
+                            contentType = "application/xml";
+                            break;
+                        case ".json":
+                            contentType = "application/json";
+                            break;
+                        case ".txt":
+                            contentType = "text/plain";
                             break;
                         default:
                             return RedirectToAction("ControlErrores", "Usuario", new { Mensaje = "Formato de archivo no soportado." });
@@ -8049,19 +8125,16 @@ namespace AsaludEcopetrol.Controllers.CuentasMedicas
 
                     byte[] bytes = System.IO.File.ReadAllBytes(dirpath);
 
-
                     Response.Clear();
                     Response.ContentType = contentType;
                     Response.AddHeader("Content-Length", bytes.Length.ToString());
 
-                    if (isInline)
+                    if (isInline || extension == ".txt" || extension == ".json" || extension == ".xml")
                     {
-                        // Previsualización del PDF
                         Response.AddHeader("Content-Disposition", "inline; filename=" + Path.GetFileName(dirpath));
                     }
                     else
                     {
-                        // Descarga del ZIP
                         Response.AddHeader("Content-Disposition", "attachment; filename=" + Path.GetFileName(dirpath));
                     }
 
@@ -8079,7 +8152,6 @@ namespace AsaludEcopetrol.Controllers.CuentasMedicas
                 return RedirectToAction("ControlErrores", "Usuario", new { Mensaje = "Ha ocurrido un error al mostrar el archivo: " + ex.Message });
             }
         }
-
 
         public PartialViewResult AprobarAuditorMasivo(List<int> capitulos)
         {
@@ -8215,8 +8287,7 @@ namespace AsaludEcopetrol.Controllers.CuentasMedicas
             Session["tiga"] = gastos;
             return PartialView(gastos);
         }
-
-
+        
         public PartialViewResult GestionarTIGA2(int ID)
         {
             Models.CuentasMedicas.RadicacionElectronica Model = new Models.CuentasMedicas.RadicacionElectronica();
@@ -8241,6 +8312,7 @@ namespace AsaludEcopetrol.Controllers.CuentasMedicas
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        
         public JsonResult EditarTiga2(int idfacturagasto)
         {
             List<vw_factura_digital_gasto_total> gastosactuales = (List<vw_factura_digital_gasto_total>)Session["tiga2"];
@@ -8280,6 +8352,7 @@ namespace AsaludEcopetrol.Controllers.CuentasMedicas
 
             return result;
         }
+
         public string ActualizarDatosTiga2(int idfacgasto, int tipogasto, string observaciones)
         {
             Models.CuentasMedicas.RadicacionElectronica Model = new Models.CuentasMedicas.RadicacionElectronica();
@@ -13404,7 +13477,8 @@ namespace AsaludEcopetrol.Controllers.CuentasMedicas
             return PartialView(registro);
         }
 
-        public JsonResult GuardarEdicionRips(int? id_registro, string cod_cups, string descripcion_cuvs, int? conteo_cups, Decimal? valor_individual,
+        public JsonResult GuardarEdicionRips(int? id_registro, string cod_cups, string descripcion_cuvs, 
+            int? conteo_cups, Decimal? valor_individual,
             string tiga, string descripcion_tiga, int? idFactura
              , int? idUsuario, int? idTransaccion, DateTime? fecha_prestacion)
         {
