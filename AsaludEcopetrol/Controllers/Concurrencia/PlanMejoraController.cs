@@ -761,7 +761,7 @@ namespace AsaludEcopetrol.Controllers.Concurrencia
                 listAbiertos = Lista.Where(x => x.estadoplan == "Abierto").ToList();
                 listCerrados = Lista.Where(x => x.estadoplan == "Cerrado").ToList();
                 listPorNotificar = Lista.Where(x => x.estadoplan == "notificar al administrador del contrato").ToList();
-                listNotificados = Lista.Where(x => x.estadoplan == "Notificado a administrador").ToList();
+                listNotificados = Lista.Where(x => x.estadoplan == "Notificado al administrador del contrato").ToList();
                 listAbiertosNotificados = Lista.Where(x => x.estadoplan == "Abierto con notificación").ToList();
 
                 Lista = Lista.OrderBy(x => x.fecha_respuesta).ToList();

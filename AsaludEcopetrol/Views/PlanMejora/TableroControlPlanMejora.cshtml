@@ -69,7 +69,7 @@
                     <li id="li2"><a href="#tab1" class="collapse2" data-toggle="tab">Cerrados @ViewBag.conteoCerrados</a></li>
                     <li id="li3"><a href="#tab2" class="collapse3" data-toggle="tab">Por notificar @ViewBag.conteoPorNotificar</a></li>
                     <li id="li4"><a href="#tab3" class="collapse4" data-toggle="tab">Notificados @ViewBag.conteoNotificados</a></li>
-                    <li id="li5"><a href="#tab4" class="collapse5" data-toggle="tab">Abierto con notificación @ViewBag.conteoNotificados</a></li>
+                    <li id="li5"><a href="#tab4" class="collapse5" data-toggle="tab">Abierto con notificación @ViewBag.conteoAbiertosNotifi</a></li>
                 </ul>
             </div>
             <div class="col-md-4 text-right">
@@ -93,7 +93,7 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Id visitas</th>
-                                        <th>Id evaluación dispensación</th>
+                                        <th>Id dispensación</th>
                                         <th>Estado</th>
                                         <th>Regional</th>
                                         <th>Unis</th>
@@ -164,11 +164,11 @@
                                                 <td>@item.nombre</td>
 
                                                 <td>
-                                                    @(item.fechaminimaplazo != null ? item.fechaminimaplazo.Value.ToString("yyyy/MM/dd") : "")
+                                                    @(item.fechaminimaplazo != null ? item.fechaminimaplazo.Value.ToString("dd/MM/yyyy") : "")
                                                 </td>
 
                                                 <td>
-                                                    @(item.fechamaximaplazo != null ? item.fechamaximaplazo.Value.ToString("yyyy/MM/dd") : "")
+                                                    @(item.fechamaximaplazo != null ? item.fechamaximaplazo.Value.ToString("dd/MM/yyyy") : "")
                                                 </td>
 
 
@@ -243,8 +243,8 @@
                                         <th>Fecha seguimiento</th>
                                         <th>Fecha estimada cierre</th>
                                         <th>Acciones de mejora</th>
+                                        
                                         <th></th>
-
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -265,11 +265,11 @@
                                                 <td>@item.nom_proceso</td>
                                                 <td>@item.nombre</td>
                                                 <td>
-                                                    @(item.fechaminimaplazo != null ? item.fechaminimaplazo.Value.ToString("yyyy/MM/dd") : "")
+                                                    @(item.fechaminimaplazo != null ? item.fechaminimaplazo.Value.ToString("dd/MM/yyyy") : "")
                                                 </td>
 
                                                 <td>
-                                                    @(item.fechamaximaplazo != null ? item.fechamaximaplazo.Value.ToString("yyyy/MM/dd") : "")
+                                                    @(item.fechamaximaplazo != null ? item.fechamaximaplazo.Value.ToString("dd/MM/yyyy") : "")
                                                 </td>
 
                                                 <td class="text-center">
@@ -343,11 +343,11 @@
                                                 <td>@item.nom_proceso</td>
                                                 <td>@item.nombre</td>
                                                 <td>
-                                                    @(item.fechaminimaplazo != null ? item.fechaminimaplazo.Value.ToString("yyyy/MM/dd") : "")
+                                                    @(item.fechaminimaplazo != null ? item.fechaminimaplazo.Value.ToString("dd/MM/yyyy") : "")
                                                 </td>
 
                                                 <td>
-                                                    @(item.fechamaximaplazo != null ? item.fechamaximaplazo.Value.ToString("yyyy/MM/dd") : "")
+                                                    @(item.fechamaximaplazo != null ? item.fechamaximaplazo.Value.ToString("dd/MM/yyyy") : "")
                                                 </td>
 
                                                 <td class="text-center">
@@ -427,11 +427,11 @@
                                                 <td>@item.nom_proceso</td>
                                                 <td>@item.nombre</td>
                                                 <td>
-                                                    @(item.fechaminimaplazo != null ? item.fechaminimaplazo.Value.ToString("yyyy/MM/dd") : "")
+                                                    @(item.fechaminimaplazo != null ? item.fechaminimaplazo.Value.ToString("dd/MM/yyyy") : "")
                                                 </td>
 
                                                 <td>
-                                                    @(item.fechamaximaplazo != null ? item.fechamaximaplazo.Value.ToString("yyyy/MM/dd") : "")
+                                                    @(item.fechamaximaplazo != null ? item.fechamaximaplazo.Value.ToString("dd/MM/yyyy") : "")
                                                 </td>
 
                                                 <td class="text-center">
@@ -507,11 +507,11 @@
                                                 <td>@item.nom_proceso</td>
                                                 <td>@item.nombre</td>
                                                 <td>
-                                                    @(item.fechaminimaplazo != null ? item.fechaminimaplazo.Value.ToString("yyyy/MM/dd") : "")
+                                                    @(item.fechaminimaplazo != null ? item.fechaminimaplazo.Value.ToString("dd/MM/yyyy") : "")
                                                 </td>
 
                                                 <td>
-                                                    @(item.fechamaximaplazo != null ? item.fechamaximaplazo.Value.ToString("yyyy/MM/dd") : "")
+                                                    @(item.fechamaximaplazo != null ? item.fechamaximaplazo.Value.ToString("dd/MM/yyyy") : "")
                                                 </td>
 
                                                 <td class="text-center">

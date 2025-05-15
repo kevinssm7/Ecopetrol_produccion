@@ -426,9 +426,10 @@ namespace AsaludEcopetrol.Models.Evolucion
         MessageResponseOBJ MsgRes = new MessageResponseOBJ();
         public Int32 id_concurrencia { get; set; }
 
+
         [Required(ErrorMessage = "***")]
         [Display(Name = "TIPO DE HABITACION")]
-        public Int32 id_tipo_habitacion { get; set; }
+        public int? id_tipo_habitacion { get; set; }
 
 
         [Display(Name = "EGRESO")]

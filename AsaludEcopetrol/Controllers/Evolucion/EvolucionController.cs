@@ -342,11 +342,11 @@ namespace AsaludEcopetrol.Controllers.Evolucion
 
                     concu = BusClass.ConsultaConcurrenciaId(idConcu);
 
-                    if(concu != null)
+                    if (concu != null)
                     {
-                        if(concu.fecha_ingreso != null)
+                        if (concu.fecha_ingreso != null)
                         {
-                            if(concu.fecha_ingreso > Model.fecha_evolucionok)
+                            if (concu.fecha_ingreso > Model.fecha_evolucionok)
                             {
                                 variable = "ERROR";
                                 variable2 = "CAMPO DE FECHA EVOLUCIÓN MAYOR A LA FECHA DE INGRESO DEL PACIENTE.";
@@ -433,147 +433,182 @@ namespace AsaludEcopetrol.Controllers.Evolucion
                     {
                         if (Model.id_cie10_1 != null)
                         {
-                            if (Model.diagnosticoDefinitivo != "NA")
-                            {
-                                ecop_concurrencia_evolucion_diag_def objdidef = new ecop_concurrencia_evolucion_diag_def();
-                                objdidef.diagnosticoDefinitivo = Model.diagnosticoDefinitivo;
-                                objdidef.id_concurrencia = Model.id_concurrencia;
-                                objdidef.fecha_digita = System.DateTime.Today;
-                                objdidef.usuario_digita = Model.SesionVar.NombreUsuario;
-                                Model.InsertaDiagnosticoDefinitivo(objdidef, SesionVar.UserName, SesionVar.IPAddress, ref MsgRes);
-                            }
-                            Boolean BolvalidaPrimerE = ValidaPrimeraEvolucion2(Model);
-
-                            if (BolvalidaPrimerE == true)
+                            if (Model.fecha_evolucion != null)
                             {
 
-                                ecop_concurrencia ObjConcu = new ecop_concurrencia();
-                                List<ecop_concurrencia> LstConcu = new List<ecop_concurrencia>();
-                                ObjConcu.id_concurrencia = Model.id_concurrencia;
-                                LstConcu = Model.ConsultaIdConcurrenia(ObjConcu, ref MsgRes);
-                                foreach (ecop_concurrencia item in LstConcu)
+                                if (Model.id_tipo_habitacion != null)
                                 {
-                                    if (!(String.IsNullOrEmpty(item.fecha_egreso.ToString())))
+
+
+                                    if (Model.diagnosticoDefinitivo != "NA")
                                     {
-                                        if (Model.fecha_evolucionok.Value.ToString("dd/MM/yyyy") == item.fecha_egreso.Value.ToString("dd/MM/yyyy"))
+                                        ecop_concurrencia_evolucion_diag_def objdidef = new ecop_concurrencia_evolucion_diag_def();
+                                        objdidef.diagnosticoDefinitivo = Model.diagnosticoDefinitivo;
+                                        objdidef.id_concurrencia = Model.id_concurrencia;
+                                        objdidef.fecha_digita = System.DateTime.Today;
+                                        objdidef.usuario_digita = Model.SesionVar.NombreUsuario;
+                                        Model.InsertaDiagnosticoDefinitivo(objdidef, SesionVar.UserName, SesionVar.IPAddress, ref MsgRes);
+                                    }
+                                    Boolean BolvalidaPrimerE = ValidaPrimeraEvolucion2(Model);
+
+                                    if (BolvalidaPrimerE == true)
+                                    {
+
+                                        ecop_concurrencia ObjConcu = new ecop_concurrencia();
+                                        List<ecop_concurrencia> LstConcu = new List<ecop_concurrencia>();
+                                        ObjConcu.id_concurrencia = Model.id_concurrencia;
+                                        LstConcu = Model.ConsultaIdConcurrenia(ObjConcu, ref MsgRes);
+                                        foreach (ecop_concurrencia item in LstConcu)
                                         {
-                                            Model.evoluciones_cargadas = "SI";
-                                            break;
+                                            if (!(String.IsNullOrEmpty(item.fecha_egreso.ToString())))
+                                            {
+                                                if (Model.fecha_evolucionok.Value.ToString("dd/MM/yyyy") == item.fecha_egreso.Value.ToString("dd/MM/yyyy"))
+                                                {
+                                                    Model.evoluciones_cargadas = "SI";
+                                                    break;
+                                                }
+                                                else
+                                                {
+                                                    Model.evoluciones_cargadas = "NO";
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        if (Model.evoluciones_cargadas == "NO")
+                                        {
+                                            ecop_concurrencia_evolucion ObjEvolucion = new ecop_concurrencia_evolucion();
+                                            ObjEvolucion.id_concurrencia = Model.id_concurrencia;
+                                            ObjEvolucion.fecha = Model.fecha_evolucionok;
+                                            ObjEvolucion.id_tipo_habitacion = Model.id_tipo_habitacion;
+                                            ObjEvolucion.InfeccionIntra = Model.infencion_intrahospitalaria;
+                                            // ObjEvolucion.justificacionEstancia = Model.justificacionEstancia;
+
+
+                                            // ObjEvolucion.notaIngreso = Model.notaIngreso;
+
+                                            List<ecop_concurrencia_evolucion> lst = new List<ecop_concurrencia_evolucion>();
+
+                                            ObjEvolucion.id_concurrencia = Model.id_concurrencia;
+                                            lst = Model.ConsultaEvoluciones(ObjEvolucion, ref MsgRes);
+                                            if (lst.Count == 0)
+                                            {
+                                                ObjEvolucion.notaIngreso = Model.notaIngreso;
+                                            }
+                                            else
+                                            {
+                                                ObjEvolucion.notaIngreso = lst[0].notaIngreso;
+                                            }
+
+                                            if (ObjEvolucion.InfeccionIntra == "SI")
+                                            {
+                                                ObjEvolucion.DesInfeccionIntra = Model.des_infencion_intrahospitalaria;
+                                            }
+                                            else
+                                            {
+                                                ObjEvolucion.DesInfeccionIntra = string.Empty;
+                                            }
+                                            ObjEvolucion.tieneEventoA = Model.tieneEventoA;
+                                            ObjEvolucion.tieneGlosa = Model.tieneGlosa;
+                                            ObjEvolucion.tieneProcedimientoQ = Model.tieneProcedimientosQui;
+                                            ObjEvolucion.tieneSituacionCA = Model.tieneSituacionCA;
+                                            ObjEvolucion.descripcion = Model.descripcion_evolucion;
+                                            ObjEvolucion.justificacionEstancia = Model.justificacionEstancia;
+
+                                            ObjEvolucion.gestion_auditor = Model.gestion_auditor;
+                                            ObjEvolucion.dx1 = Model.id_cie10_1;
+                                            ObjEvolucion.dx2 = Model.id_cie10_2;
+                                            ObjEvolucion.dx3 = Model.id_cie10_3;
+                                            ObjEvolucion.dx4 = Model.id_cie10_4;
+                                            ObjEvolucion.tiene_ahorro = Model.Ahorro;
+                                            ObjEvolucion.tiene_estancia_pertinente = Model.tiene_estancia_pertinente;
+                                            ObjEvolucion.tiene_ingresoCohorte = Model.tieneCohorteBenef;
+                                            ObjEvolucion.digita_usuario = SesionVar.UserName;
+                                            ObjEvolucion.ValidaEvolucion = ObjEvolucion.fecha.Value.Month.ToString() + ObjEvolucion.fecha.Value.Day.ToString() + ObjEvolucion.fecha.Value.Year.ToString() + Model.id_concurrencia.ToString();
+                                            ObjEvolucion.fecha_digita = Model.ManagmentHora();
+
+                                            Model.InsertaConcurrenciaEvolucion(ObjEvolucion, listaProcedimientos, SesionVar.UserName, SesionVar.IPAddress, ref MsgRes);
+
+                                            Alertas(Model);
+
+                                            ObjEvolucion.id_concurrencia = Model.id_concurrencia;
+                                            lst = Model.ConsultaEvoluciones(ObjEvolucion, ref MsgRes);
+
+                                            if (lst.Count != 0)
+                                            {
+                                                return RedirectToAction("Evolucion", "Evolucion", new { idConcu = ObjEvolucion.id_concurrencia });
+                                            }
+
+                                            else
+                                            {
+                                                Model.id_concurrencia = ObjEvolucion.id_concurrencia;
+                                                ModelState.AddModelError("", "Error... Insertando....");
+                                            }
+
                                         }
                                         else
                                         {
-                                            Model.evoluciones_cargadas = "NO";
-                                            break;
+                                            ModelState.AddModelError("", "!!...Error...El paciente ya tiene ingresada todas las evoluciones cargadas...!!!");
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        List<ecop_concurrencia_evolucion> lst2 = new List<ecop_concurrencia_evolucion>();
+                                        ecop_concurrencia_evolucion ObjEvolucion2 = new ecop_concurrencia_evolucion();
+                                        ecop_concurrencia ObjConcu2 = new ecop_concurrencia();
+                                        List<vw_concurrencia_evolucion_Contrato> LstConcu2 = new List<vw_concurrencia_evolucion_Contrato>();
+                                        ObjEvolucion2.id_concurrencia = Model.id_concurrencia;
+                                        lst2 = Model.ConsultaEvoluciones(ObjEvolucion2, ref MsgRes);
+
+
+
+                                        if (lst2.Count == 0)
+                                        {
+                                            ModelState.AddModelError("", "Error...no puede ser mayor de  24  Horas desde el ingreso" + "...");
+                                        }
+                                        else
+                                        {
+                                            ModelState.AddModelError("", "Error...no puede ser mayor a  72  Horas desde el ultimo ingreso" + "...");
                                         }
                                     }
-                                }
-                                if (Model.evoluciones_cargadas == "NO")
-                                {
-                                    ecop_concurrencia_evolucion ObjEvolucion = new ecop_concurrencia_evolucion();
-                                    ObjEvolucion.id_concurrencia = Model.id_concurrencia;
-                                    ObjEvolucion.fecha = Model.fecha_evolucionok;
-                                    ObjEvolucion.id_tipo_habitacion = Model.id_tipo_habitacion;
-                                    ObjEvolucion.InfeccionIntra = Model.infencion_intrahospitalaria;
-                                    // ObjEvolucion.justificacionEstancia = Model.justificacionEstancia;
-
-
-                                    // ObjEvolucion.notaIngreso = Model.notaIngreso;
-
-                                    List<ecop_concurrencia_evolucion> lst = new List<ecop_concurrencia_evolucion>();
-
-                                    ObjEvolucion.id_concurrencia = Model.id_concurrencia;
-                                    lst = Model.ConsultaEvoluciones(ObjEvolucion, ref MsgRes);
-                                    if (lst.Count == 0)
-                                    {
-                                        ObjEvolucion.notaIngreso = Model.notaIngreso;
-                                    }
-                                    else
-                                    {
-                                        ObjEvolucion.notaIngreso = lst[0].notaIngreso;
-                                    }
-
-                                    if (ObjEvolucion.InfeccionIntra == "SI")
-                                    {
-                                        ObjEvolucion.DesInfeccionIntra = Model.des_infencion_intrahospitalaria;
-                                    }
-                                    else
-                                    {
-                                        ObjEvolucion.DesInfeccionIntra = string.Empty;
-                                    }
-                                    ObjEvolucion.tieneEventoA = Model.tieneEventoA;
-                                    ObjEvolucion.tieneGlosa = Model.tieneGlosa;
-                                    ObjEvolucion.tieneProcedimientoQ = Model.tieneProcedimientosQui;
-                                    ObjEvolucion.tieneSituacionCA = Model.tieneSituacionCA;
-                                    ObjEvolucion.descripcion = Model.descripcion_evolucion;
-                                    ObjEvolucion.justificacionEstancia = Model.justificacionEstancia;
-
-                                    ObjEvolucion.gestion_auditor = Model.gestion_auditor;
-                                    ObjEvolucion.dx1 = Model.id_cie10_1;
-                                    ObjEvolucion.dx2 = Model.id_cie10_2;
-                                    ObjEvolucion.dx3 = Model.id_cie10_3;
-                                    ObjEvolucion.dx4 = Model.id_cie10_4;
-                                    ObjEvolucion.tiene_ahorro = Model.Ahorro;
-                                    ObjEvolucion.tiene_estancia_pertinente = Model.tiene_estancia_pertinente;
-                                    ObjEvolucion.tiene_ingresoCohorte = Model.tieneCohorteBenef;
-                                    ObjEvolucion.digita_usuario = SesionVar.UserName;
-                                    ObjEvolucion.ValidaEvolucion = ObjEvolucion.fecha.Value.Month.ToString() + ObjEvolucion.fecha.Value.Day.ToString() + ObjEvolucion.fecha.Value.Year.ToString() + Model.id_concurrencia.ToString();
-                                    ObjEvolucion.fecha_digita = Model.ManagmentHora();
-
-                                    Model.InsertaConcurrenciaEvolucion(ObjEvolucion, listaProcedimientos, SesionVar.UserName, SesionVar.IPAddress, ref MsgRes);
-
-                                    Alertas(Model);
-
-                                    ObjEvolucion.id_concurrencia = Model.id_concurrencia;
-                                    lst = Model.ConsultaEvoluciones(ObjEvolucion, ref MsgRes);
-
-                                    if (lst.Count != 0)
-                                    {
-                                        return RedirectToAction("Evolucion", "Evolucion", new { idConcu = ObjEvolucion.id_concurrencia });
-                                    }
-
-                                    else
-                                    {
-                                        Model.id_concurrencia = ObjEvolucion.id_concurrencia;
-                                        ModelState.AddModelError("", "Error... Insertando....");
-                                    }
 
                                 }
+
                                 else
                                 {
-                                    ModelState.AddModelError("", "!!...Error...El paciente ya tiene ingresada todas las evoluciones cargadas...!!!");
+
+                                    ModelState.AddModelError("", "Error...Debe ingresar el campo TIPO HABITACION");
                                 }
+
+
+
+
 
                             }
                             else
                             {
-                                List<ecop_concurrencia_evolucion> lst2 = new List<ecop_concurrencia_evolucion>();
-                                ecop_concurrencia_evolucion ObjEvolucion2 = new ecop_concurrencia_evolucion();
-                                ecop_concurrencia ObjConcu2 = new ecop_concurrencia();
-                                List<vw_concurrencia_evolucion_Contrato> LstConcu2 = new List<vw_concurrencia_evolucion_Contrato>();
-                                ObjEvolucion2.id_concurrencia = Model.id_concurrencia;
-                                lst2 = Model.ConsultaEvoluciones(ObjEvolucion2, ref MsgRes);
-                                
-                                
-                                
-                                if (lst2.Count == 0)
-                                {
-                                    ModelState.AddModelError("", "Error...no puede ser mayor de  24  Horas desde el ingreso" + "...");
-                                }
-                                else
-                                {
-                                    ModelState.AddModelError("", "Error...no puede ser mayor a  72  Horas desde el ultimo ingreso" + "...");
-                                }
+                                ModelState.AddModelError("", "Error...Debe ingresar el campo FECHA EVOLUCION");
                             }
+
+
                         }
+
+
                         else
                         {
-                            ModelState.AddModelError("", "Error...Debe ingresar El diagnostico  DIAGNOSTICOS CIE10_1");
+                            ModelState.AddModelError("", "Error...Debe ingresar el campo DIAGNOSTICOS PRINCIPAL");
                         }
                     }
+
+
+
+
+
+
                     else
                     {
 
-                        if (Model.id_cie10_1 != null)
+                        if (Model.id_cie10_1 != null && Model.fecha_evolucion != null)
                         {
                             if (Model.diagnosticoDefinitivo != "NA")
                             {
@@ -700,7 +735,7 @@ namespace AsaludEcopetrol.Controllers.Evolucion
                         }
                         else
                         {
-                            ModelState.AddModelError("", "Error...Debe ingresar El diagnostico  DIAGNOSTICOS CIE10_1");
+                            ModelState.AddModelError("", "Error...Debe ingresar los campos requeridos (***)");
                         }
                     }
                 }
@@ -709,6 +744,7 @@ namespace AsaludEcopetrol.Controllers.Evolucion
                     ViewBag.id_concurrencia = Model.id_concurrencia;
                     ModelState.AddModelError("", "ERROR...DEBE INGRESAR EL" + ' ' + variable2);
                 }
+            
             }
             catch (Exception ex)
             {
