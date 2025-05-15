@@ -1838,7 +1838,7 @@ namespace AsaludEcopetrol.Controllers.VerificacionEstablecimiento
                     Sheet.Cells[string.Format("E{0}", row)].Value = item.unis;
                     Sheet.Cells[string.Format("F{0}", row)].Value = item.ciudad;
                     Sheet.Cells[string.Format("G{0}", row)].Value = item.nit_prestador + item.nombre_prestador;
-                    Sheet.Cells[string.Format("H{0}", row)].Value = item.nit_prestador + item.nombre_prestador;
+                    Sheet.Cells[string.Format("H{0}", row)].Value = item.nombre_farmacia;
                     Sheet.Cells[string.Format("I{0}", row)].Value = item.direccion_punto_dispensacion;
                     Sheet.Cells[string.Format("J{0}", row)].Value = item.contacto_telefonico;
                     Sheet.Cells[string.Format("K{0}", row)].Value = item.total_resultado;
