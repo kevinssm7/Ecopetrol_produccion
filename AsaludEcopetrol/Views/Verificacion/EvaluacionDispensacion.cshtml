@@ -914,7 +914,8 @@
         var existe = $("#existe").val();
         var tipoEvaluacion = $("#tipoEvaluacion").val();
 
-        if (existe == 0 || (existe != 0 && tipoEvaluacion != 1)) {
+        if (existe == 0 || (existe != 0 && tipoEvaluacion != 1))
+        {
 
             //setInterval(guardadoAutomatico, 90000);
 
@@ -931,7 +932,10 @@
                 pesoTotal(0, 0, 0, 0);
                 LlenarAutomaticoInicio();
             }
+
+            guardadoAutomatico();
         }
+
 
         else if (existe != 1 && tipoEvaluacion == 1) {
             llenadoObservaciones();
@@ -941,7 +945,7 @@
             width: '100%'
         });
 
-        guardadoAutomatico();
+        
 
     });
 
