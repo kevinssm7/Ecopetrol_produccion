@@ -711,12 +711,24 @@
                     </td>
                     <td class="tdNomal">
                         @*@Html.EditorFor(model => Model.fecha_evolucion, new { htmlAttributes = new { @class = "form-control", placeholder = "MM/dd/yyyy"} })*@
-                        @(Html.Kendo().DateTimePickerFor(p => p.fecha_evolucion)
+                        @*(Html.Kendo().DateTimePickerFor(p => p.fecha_evolucion)
                             .Format("MM/dd/yyyy")
                             .Events(e => e.Change("change"))
                             .HtmlAttributes(new { style = "width: 100%", title = "Vigencia desde" })
-)
                         
+                            
+                        )*@
+
+                        @(Html.Kendo().DateTimePickerFor(p => p.fecha_evolucion)
+                            .Format("MM/dd/yyyy")
+                            .Events(e => e.Change("change"))
+                            .HtmlAttributes(new {
+                                style = "width: 100%",
+                                title = "Vigencia desde",
+                                data_val = "false"
+                         }))
+
+
                     </td>
                     <td class="Error">
                         @Html.ValidationMessageFor(x => x.fecha_evolucion)
