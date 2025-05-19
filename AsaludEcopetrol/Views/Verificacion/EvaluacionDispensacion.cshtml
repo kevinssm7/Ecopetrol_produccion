@@ -1566,6 +1566,10 @@
         }
     }
 
+   
+
+    debugger
+
     function enviarDatos() {
 
         validaCompleto();
@@ -1649,7 +1653,7 @@
         formData.append("id_evaluacion", $("#id_evaluacion").val());
         formData.append("nombre_auditado", $("#txtnomAuditado").val());
 
-        var id_evaluacion = 0;
+        
         $("#validacion").val(2);
 
         LoadingShow();
@@ -1661,10 +1665,10 @@
             contentType: false,
             processData: false,
             traditional: true,
-
+            
             success: function (data) {
 
-                debugger
+                
 
                 if (data.success) {
 
@@ -1674,14 +1678,16 @@
                     $("#validacion").val(2);
                     alert(data.message);
                     LoadingHide();
+                    
 
-                    if (envioPlan == 0) {
 
-                        id_evaluacion = data.id_evaluacion;
+                    if (envioPlan == 0 || envioPlan == null) {
+
+                        id_evaluacion = id_evaluacion;
                         pdfEvaluacion(id_evaluacion);
                         guardarImagenes(id_evaluacion, 1);
 
-                        location.href = "@Url.Action("TableroPuntoDispensacion")";
+                        
                     }
                     else {
 
@@ -1747,9 +1753,13 @@
     }
 
    function pdfEvaluacion(id_evaluacion) {
+       debugger
 
-        var url = "@Url.Action("PdfEvaluacionVisitas", "Verificacion")?idEvaluacion=" + id_evaluacion;
+       console.log("El id de evaluas es: ", id_evaluacion);
+
+       var url = "@Url.Action("PdfEvaluacionVisitas", "Verificacion")?idEvaluacion=" + id_evaluacion;
         popupWindow = window.open(url, '', 'height=500,width=700,left=50,top=50,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes')
+
     }
 
     function textoArchivo(j, i) {

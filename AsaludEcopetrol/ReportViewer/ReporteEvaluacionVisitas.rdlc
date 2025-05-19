@@ -152,7 +152,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>UNIS</Value>
+                    <Value>UNIS:</Value>
                     <Style>
                       <FontFamily>Century Gothic</FontFamily>
                     </Style>
@@ -223,7 +223,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>DIRECCIÓN</Value>
+                    <Value>DIRECCIÓN:</Value>
                     <Style>
                       <FontFamily>Century Gothic</FontFamily>
                     </Style>
@@ -294,7 +294,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>NOMBRE AUDITOR</Value>
+                    <Value>NOMBRE AUDITOR:</Value>
                     <Style>
                       <FontFamily>Century Gothic</FontFamily>
                     </Style>
@@ -365,7 +365,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>NOMBRE FARMACIA</Value>
+                    <Value>NOMBRE FARMACIA:</Value>
                     <Style>
                       <FontFamily>Century Gothic</FontFamily>
                     </Style>
@@ -436,7 +436,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>TELÉFONO</Value>
+                    <Value>TELÉFONO:</Value>
                     <Style>
                       <FontFamily>Century Gothic</FontFamily>
                     </Style>
@@ -578,7 +578,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>NOMBRE AUDITADO</Value>
+                    <Value>NOMBRE AUDITADO:</Value>
                     <Style>
                       <FontFamily>Century Gothic</FontFamily>
                     </Style>
@@ -685,7 +685,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>ID VISITA</Value>
+                    <Value>ID VISITA:</Value>
                     <Style>
                       <FontFamily>Century Gothic</FontFamily>
                     </Style>

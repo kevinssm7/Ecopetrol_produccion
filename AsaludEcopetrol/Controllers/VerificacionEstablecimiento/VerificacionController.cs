@@ -1213,6 +1213,7 @@ namespace AsaludEcopetrol.Controllers.VerificacionEstablecimiento
                 else
                 {
                     obj.estado = 1;
+                    envioPlan = 0;
                 }
 
                 var idEvaluacion = 0;
